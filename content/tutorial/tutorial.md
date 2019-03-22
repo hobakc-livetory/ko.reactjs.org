@@ -12,77 +12,86 @@ redirect_from:
   - "docs/tutorial-zh-CN.html"
 ---
 
-This tutorial doesn't assume any existing React knowledge.
+이 튜토리얼은 React에 대한 사전 지식을 필요로 하지 않습니다.
 
-## Before We Start the Tutorial {#before-we-start-the-tutorial}
+## 튜토리얼을 시작하기 전에{#before-we-start-the-tutorial}
 
-We will build a small game during this tutorial. **You might be tempted to skip it because you're not building games -- but give it a chance.** The techniques you'll learn in the tutorial are fundamental to building any React apps, and mastering it will give you a deep understanding of React.
+이 튜토리얼에서는 작은 게임을 만듭니다. ** 자신은 게임을 만들고 싶진 않으니깐 넘겨버리실지도 모르지만, 꼭 훑어보십시오. **이 튜토리얼의 학습 기법은 어떤 React 응용프로그램에서도 기본적인 것이며, 마스터함으로써 React에 대한 깊은 이해를 얻을 수 있습니다.
 
 >Tip
 >
->This tutorial is designed for people who prefer to **learn by doing**. If you prefer learning concepts from the ground up, check out our [step-by-step guide](/docs/hello-world.html). You might find this tutorial and the guide complementary to each other.
+>이 튜토리얼은 실제로 **실습으로 배우고 싶은** 사람들을 위해 구성되어 있습니다. 컨셉을 차례로 배우고 싶은 사람은 [스텝 바이 스텝 가이드](/docs/hello-world.html)를 참조하십시오. 이 튜토리얼과 가이드는 서로 보완적입니다.
 
-The tutorial is divided into several sections:
+이 튜토리얼은 복수의 세션으로 되어있습니다.
 
-* [Setup for the Tutorial](#setup-for-the-tutorial) will give you **a starting point** to follow the tutorial.
-* [Overview](#overview) will teach you **the fundamentals** of React: components, props, and state.
-* [Completing the Game](#completing-the-game) will teach you **the most common techniques** in React development.
-* [Adding Time Travel](#adding-time-travel) will give you **a deeper insight** into the unique strengths of React.
+* [튜토리얼 준비(Setup for the Tutorial)](#setup-for-the-tutorial) 아래의 튜토리얼을 진행하기위한 **시작점(a starting point)** 입니다..
+* [설명(Overview)](#overview) componets, props, state 같은 React의 **기초개념(the fundamentals)** 에 대해서 가르쳐 드립니다.
+* [게임완성(Completing the Game)](#completing-the-game) React 개발에서 **가장 보편적인 기술(the most common techniques)** 에 대해서 가르쳐 드립니다.
+* [시간여행 추가(Adding Time Travel)](#adding-time-travel) React의 독특한 장점에 대해 **깊은 통할력(a deeper insight)** 을 얻을수 있습니다.
 
-You don't have to complete all of the sections at once to get the value out of this tutorial. Try to get as far as you can -- even if it's one or two sections.
+이 튜토리얼에서 가치를 얻기 위해 전체 섹션을 한 번에 끝낼 필요는 없습니다. 섹션 한개 또는 두개라도 상관하지 않으므로 할 수 있는 곳까지 진행 하시면 됩니다.
 
-### What Are We Building? {#what-are-we-building}
+### 무엇을 만들까? {# what-are-we-building}
 
-In this tutorial, we'll show how to build an interactive tic-tac-toe game with React.
+이 튜토리얼에서는 React로 대화형(interactive) 틱택토(tic-tac-toe) 게임을 만드는 방법을 보여드립니다.
 
-You can see what we'll be building here: **[Final Result](https://codepen.io/gaearon/pen/gWWZgR?editors=0010)**. If the code doesn't make sense to you, or if you are unfamiliar with the code's syntax, don't worry! The goal of this tutorial is to help you understand React and its syntax.
+최종 결과를 여기에서 확인할 수 있습니다 : ** 최종 결과 (https://codepen.io/gaearon/pen/gWWZgR?editors=0010) ** 만약  코드를 이해하지 못했거나, 잘 모르는 코드 구문(syntax)이 있어도 걱정하지 마세요. 이 튜토리얼의 목표는 React와 그 구문을 이해하는데 도움이 되는 것입니다.
 
-We recommend that you check out the tic-tac-toe game before continuing with the tutorial. One of the features that you'll notice is that there is a numbered list to the right of the game's board. This list gives you a history of all of the moves that have occurred in the game, and is updated as the game progresses.
+튜토리얼을 진행하기 전에 틱택토 게임을 해보는 것이 좋습니다. 눈에 띄는 기능 중 하나는 게임 보드 오른쪽에 번호가 매겨진 목록이 있다는것을 알게 될 것입니다. 이 목록은 게임 내에서 일어난 모든 동작의 기록이 표시되며 게임 진행에 따라 업데이트 됩니다.
 
-You can close the tic-tac-toe game once you're familiar with it. We'll be starting from a simpler template in this tutorial. Our next step is to set you up so that you can start building the game.
+무슨 뜻인지 알면 틱택 게임을 닫고 상관하지 않습니다. 더 작은 편지지부터 시작하자. 다음 단계는 게임의 구축을 할 수 있도록 환경 설정 작업입니다.
+틱택톡 게임
+어떤 의미인지 알면 틱택토 게임을 닫아도 괜찮습니다. 튜토리얼의 단순한 템플릿부터 시작하겠습니다. 다음 단계는 게임 구축을 할 수 있도록 환경 설정을 하는 것입니다.
 
-### Prerequisites {#prerequisites}
+### 전제 조건 {#prerequisites}
 
-We'll assume that you have some familiarity with HTML and JavaScript, but you should be able to follow along even if you're coming from a different programming language. We'll also assume that you're familiar with programming concepts like functions, objects, arrays, and to a lesser extent, classes.
+HTML과 JavaScript에 익숙하다고 가정 하겠지만, 다른 프로그래밍 언어를 사용해 왔다하더라도 따라 할 수 있습니다. 또한, 함수, 객체, 배열 또는 (상대적으로 중요하지 않지만) 클래스와 같은 프로그래밍 개념에 익숙하다고 가정합니다.
 
-If you need to review JavaScript, we recommend reading [this guide](https://developer.mozilla.org/en-US/docs/Web/JavaScript/A_re-introduction_to_JavaScript). Note that we're also using some features from ES6 -- a recent version of JavaScript. In this tutorial, we're using [arrow functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions), [classes](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes), [`let`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let), and [`const`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/const) statements. You can use the [Babel REPL](babel://es5-syntax-example) to check what ES6 code compiles to.
+자바 스크립트를 복습 할 필요가 있을 경우 [이 가이드] (https://developer.mozilla.org/en-US/docs/Web/JavaScript/A_re-introduction_to_JavaScript)를 읽어 보는 것이 좋습니다. 최근 JavaScript 버전 인 ES6의 일부 기능도 사용하고 있습니다. 이 튜토리얼에서는 [화살표 함수] (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions), [클래스] (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes), [`let`] (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let ) 및 [`const`] (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/const) 문을 사용하고 있습니다. [Babel REPL] (babel://es5-syntax-example)을 사용하여 ES6 코드가 어떻게 컴파일 되는지 확인 할 수 있습니다.
 
-## Setup for the Tutorial {#setup-for-the-tutorial}
+## 튜토리얼을 위한 설치 {#setup-for-the-tutorial}
 
-There are two ways to complete this tutorial: you can either write the code in your browser, or you can set up a local development environment on your computer.
+이 튜토리얼을 끝까지 진행하기위한 방법은 두 가지가 있습니다. 브라우저에서 코드를 작성하거나, 컴퓨터에 로컬 개발 환경을 구축하는 방법 입니다.
 
-### Setup Option 1: Write Code in the Browser {#setup-option-1-write-code-in-the-browser}
+### 설치 옵션 1 : 브라우저에서 코드를 작성 {#setup-option-1-write-code-in-the-browser}
 
-This is the quickest way to get started!
+시작하는데 가장 빠른 방법입니다!
 
-First, open this **[Starter Code](https://codepen.io/gaearon/pen/oWWQNa?editors=0010)** in a new tab. The new tab should display an empty tic-tac-toe game board and React code. We will be editing the React code in this tutorial.
+먼저, 이 **[Starter Code](https://codepen.io/gaearon/pen/oWWQNa?editors=0010)** 를 새 탭에서 오픈 합니다. 빈 틱택토 게임 보드와 React 코드가 표시될 것입니다. 이 튜토리얼에서는 이 코드를 편집 해 나갈 것입니다.
 
-You can now skip the second setup option, and go to the [Overview](#overview) section to get an overview of React.
+두 번째 옵션은 건너뛰고, [개요](#overview) 세션으로 이동해서 React의 개요를 배우시면 됩니다.
 
 ### Setup Option 2: Local Development Environment {#setup-option-2-local-development-environment}
 
 This is completely optional and not required for this tutorial!
 
+### 설치 옵션 2 : 로컬 개발 환경 {#setup-option-2-local-development-environment}
+
+이것은 완전히 선택 사항이며, 이 튜토리얼에서는 필요하지 않습니다!
+
 <br>
 
 <details>
 
-<summary><b>Optional: Instructions for following along locally using your preferred text editor</b></summary>
+<summary><b>선택 사항: 원하는 텍스트 편집기르 사용하여 로컬에서 진행하는 방법</b></summary>
 
-This setup requires more work but allows you to complete the tutorial using an editor of your choice. Here are the steps to follow:
+이 설정은 더 많은 작업이 필요하지만 원하는 편집기를 사용하여 튜토리얼을 완료 할 수 있습니다. 다음 단계를 따르십시오.
 
 1. Make sure you have a recent version of [Node.js](https://nodejs.org/en/) installed.
 2. Follow the [installation instructions for Create React App](/docs/create-a-new-react-app.html#create-react-app) to make a new project.
+
+1. [Node.js] (https://nodejs.org/ko/)의 최신 버전이 설치되어 있는지 확인하십시오.
+2. [Create React App 설치 가이드] (/docs/create-a-new-react-app.html#create-reaction-app)에 따라 새 프로젝트를 만듭니다.
 
 ```bash
 npx create-react-app my-app
 ```
 
-3. Delete all files in the `src/` folder of the new project 
+3. 새 프로젝트의 `src/` 폴더에 있는 모든 파일을 지우십시오.
 
-> Note:
+> Note :
 >
->**Don't delete the entire `src` folder, just the original source files inside it.** We'll replace the default source files with examples for this project in the next step.
+>** `src` 폴더 자체를 지우는 것이 아니라 폴더안에 있는 소스 파일을 삭제하십시오. ** 다음 단계에서 원본 소스 파일을 이 프로젝트의 예제로 바꿉니다.
 
 ```bash
 cd my-app
@@ -98,11 +107,11 @@ del *
 cd ..
 ```
 
-4. Add a file named `index.css` in the `src/` folder with [this CSS code](https://codepen.io/gaearon/pen/oWWQNa?editors=0100).
+4.`src/`폴더에 `index.css` 파일을 만들고, 여기에 [CSS 코드](https://codepen.io/gaearon/pen/oWWQNa?editors=0100)를 추가하십시오.
 
-5. Add a file named `index.js` in the `src/` folder with [this JS code](https://codepen.io/gaearon/pen/oWWQNa?editors=0010).
+5.`src/`폴더에 `index.js` 파일을 만들고, 여기에 [JS 코드](https://codepen.io/gaearon/pen/oWWQNa?editors=0010)를 추가하십시오.
 
-6. Add these three lines to the top of `index.js` in the `src/` folder:
+6.`src/`폴더의 `index.js` 파일의 맨 위에 다음 세 줄의 코드를 추가하십시오 :
 
 ```js
 import React from 'react';
@@ -110,15 +119,15 @@ import ReactDOM from 'react-dom';
 import './index.css';
 ```
 
-Now if you run `npm start` in the project folder and open `http://localhost:3000` in the browser, you should see an empty tic-tac-toe field.
+이제 프로젝트 폴더에서`npm start`를 실행하고 브라우저에서`http://localhost:3000`을 열면 빈 틱택토 필드가 나타날 것입니다.
 
-We recommend following [these instructions](https://babeljs.io/docs/editors/) to configure syntax highlighting for your editor.
+[지침](https://babeljs.io/docs/editors/)에 따라 편집기에서 구문 강조를 설정하는 것이 좋습니다.
 
 </details>
 
-### Help, I'm Stuck! {#help-im-stuck}
+### 도와주세요, 막힘! {#help-im-stuck}
 
-If you get stuck, check out the [community support resources](/community/support.html). In particular, [Reactiflux Chat](https://discord.gg/0ZcbPKXt5bZjGY5n) is a great way to get help quickly. If you don't receive an answer, or if you remain stuck, please file an issue, and we'll help you out.
+만약 문제가 발생하면 [community support resources] (https://reactjs.org/community/support.html)를 확인하십시오. 특히, [Reactiflux Chat] (https://discord.gg/0ZcbPKXt5bZjGY5n)는 신속하게 도움을 얻을 수있는 좋은 방법입니다. 답변을 받지 못했거나 막혔을 경우, issue를 만들어 주시면 도와드리겠습니다.
 
 ## Overview {#overview}
 
